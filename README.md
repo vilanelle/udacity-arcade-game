@@ -1,6 +1,23 @@
-frontend-nanodegree-arcade-game
-===============================
+# Project Overview
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+Classic arcade game based on legendary Frogger. Udacity/Google Scholarship object-oriented JS project, using ES6 syntax.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+
+## Installation
+
+Simply clone the repo to your PC and open the index.html in browser, then follow instructions provided in the game.
+
+## Known bugs
+
+The project relies heavily on ES6 with no polyfills, hence malfunctions will occur on some browsers.
+
+## Contributing
+
+The current implementation is basic leaving ample opportunities for the game development. Options to add:
+- player lives for losing
+- difficulty level choice by tweaking enemy number and/or speed
+- avatar choice
+
+## Attributions
+
+This project is based on a starter provided for the testing project under Udacity/Google Front End Nanodegree.
