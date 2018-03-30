@@ -1,5 +1,5 @@
 /* Classic arcade game based on frogger. Udacity/Google Scholarship object-oriented JS project */
-
+'use strict'
 /* DOM elements */
 const winScreen = document.getElementById('winScreen');
 const loseScreen = document.getElementById('loseScreen');
@@ -10,38 +10,38 @@ const getRandomInt = (min, max) => {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-/* Setting random positioning helper functions */
-
-// Possible vertical positioning
-const positionY = {
-	topRow: 68,
-	midRow: 151,
-	bottomRow: 234
-}
-
-const getRandomRow = () => {
-	const rand = getRandomInt(1, 3);
-	return this.y = rand === 1 ? positionY.topRow : (rand === 2 ? positionY.midRow : positionY.bottomRow);
-}
-
-const getRandomOffset = () => {
-	return getRandomInt(-100, -400);
-}
-
-const getRandomSpeed = () => {
-	return getRandomInt(150, 500);
-}
-
 // Enemies our player must avoid
 const Enemy = function(x, y, speed) {
-	this.x = x;
-	this.y = y;
-	this.speed = speed;
+	this.x = this.getRandomOffset();
+	this.y = this.getRandomRow();
+	this.speed = this.getRandomSpeed();
 
 	// The image/sprite for our enemies, this uses
 	// a helper provided to easily load images
 	this.sprite = 'images/enemy-bug.png';
 };
+
+/* Setting random positioning helper functions */
+
+// Possible vertical positioning
+Enemy.prototype.positionY = {
+	topRow: 68,
+	midRow: 151,
+	bottomRow: 234
+}
+
+Enemy.prototype.getRandomRow = function() {
+	const rand = getRandomInt(1, 3);
+	return this.y = rand === 1 ? this.positionY.topRow : (rand === 2 ? this.positionY.midRow : this.positionY.bottomRow);
+}
+
+Enemy.prototype.getRandomOffset = function() {
+	return getRandomInt(-100, -400);
+}
+
+Enemy.prototype.getRandomSpeed = function() {
+	return getRandomInt(150, 500);
+}
 
 // Update the enemy's position
 // Parameter: dt, a time delta between ticks
@@ -55,9 +55,9 @@ Enemy.prototype.update = function(dt) {
 
 	// get new random enemy position after it goes off screen
 	if (this.x > 500) {
-		this.x = getRandomOffset();
-		this.y = getRandomRow();
-		this.speed = getRandomSpeed();
+		this.x = this.getRandomOffset();
+		this.y = this.getRandomRow();
+		this.speed = this.getRandomSpeed();
 	}
 };
 
@@ -74,10 +74,10 @@ const Player = function() {
 };
 
 // Check for collisions
-const checkCollisions = () => {
+Player.prototype.checkCollisions = function() {
 	allEnemies.forEach(enemy => {
-		if (enemy.y === player.y) {
-			if ((Math.abs(enemy.x - player.x)) < 80) {
+		if (enemy.y === this.y) {
+			if ((Math.abs(enemy.x - this.x)) < 80) {
 				allEnemies.forEach(enemy => enemy.speed = 0);
 				loseScreen.style.display = 'block';
 			}
@@ -86,7 +86,8 @@ const checkCollisions = () => {
 }
 
 Player.prototype.update = function() {
-	checkCollisions();
+	this.checkCollisions();
+
 };
 
 // Render player avatar
@@ -95,8 +96,8 @@ Player.prototype.render = function() {
 };
 
 // Update player position on arrow keys input & check for win
-const checkWin = () => {
-	if (player.y < 68) {
+Player.prototype.checkWin = function() {
+	if (this.y < 68) {
 		allEnemies.forEach(enemy => {
 			allEnemies.forEach(enemy => enemy.speed = 0);
 			winScreen.style.display = 'block';
@@ -120,7 +121,7 @@ Player.prototype.handleInput = function(key) {
 			break;
 	}
 
-	checkWin();
+	this.checkWin();
 
 	if (this.x < 0) {
 		this.x = 0;
@@ -137,10 +138,10 @@ Player.prototype.handleInput = function(key) {
 
 // Instantiate game objects.
 const allEnemies = [
-	new Enemy(getRandomOffset(), getRandomRow(), getRandomSpeed()),
-	new Enemy(getRandomOffset(), getRandomRow(), getRandomSpeed()),
-	new Enemy(getRandomOffset(), getRandomRow(), getRandomSpeed()),
-	new Enemy(getRandomOffset(), getRandomRow(), getRandomSpeed())
+	new Enemy(),
+	new Enemy(),
+	new Enemy(),
+	new Enemy()
 ];
 
 const player = new Player();

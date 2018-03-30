@@ -7,6 +7,8 @@ Classic arcade game based on legendary Frogger. Udacity/Google Scholarship objec
 
 Simply clone the repo to your PC and open the index.html in browser, then follow instructions provided in the game.
 
+You can also play the game at http://vilanelle.github.io/udacity-arcade-game.
+
 ## Known bugs
 
 The project relies heavily on ES6 with no polyfills, hence malfunctions will occur on some browsers.

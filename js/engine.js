@@ -35,9 +35,9 @@ var Engine = (function(global) {
 		player.x = 0;
 		player.y = 400;
 		allEnemies.forEach(enemy => {
-			enemy.x = getRandomOffset();
-			enemy.y = getRandomRow();
-			enemy.speed = getRandomSpeed();
+			enemy.x = enemy.getRandomOffset();
+			enemy.y = enemy.getRandomRow();
+			enemy.speed = enemy.getRandomSpeed();
 		});
 	}
 
